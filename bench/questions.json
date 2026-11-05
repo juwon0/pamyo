@@ -1,0 +1,36 @@
+{
+  "about": "Questions about the haunted repository (scripts/make_haunted_repo.py). 'line' is text that appears on exactly one line of the file. An answerable question is answered right when a kept quote comes from one of 'from' (the subject of a commit that touched the line, or 'code' for a comment or docstring near it) and contains one of 'says'. A comment can be quoted from the code or from the commit that added it, so both are listed. An unanswerable one is answered right when Pamyo stays silent.",
+  "questions": [
+    {"id": "rate-limit", "file": "orders/payment.py", "line": "time.sleep(0.4)", "ask": "Why do we sleep here?",
+     "from": ["Stay under the PG rate limit", "code"], "says": ["3 calls a second", "block the key", "rate limit"]},
+    {"id": "retries", "file": "orders/payment.py", "line": "MAX_RETRIES = 7", "ask": "Why 7 retries? It looks random.",
+     "from": ["Black Friday: PG times out under load"], "says": ["7번", "504", "블프", "times out under load"]},
+    {"id": "round-10-won", "file": "orders/payment.py", "line": "amount = amount // 10 * 10", "ask": "Why do we drop the last digit of the amount?",
+     "from": ["code", "fix"], "says": ["multiple of 10 won"]},
+    {"id": "cp949", "file": "orders/export.py", "line": "encoding=\"cp949\"", "ask": "Why cp949 and not UTF-8? Can I switch it?",
+     "from": ["cp949 is on purpose", "code"], "says": ["한글이 다 깨짐", "바꾸지 마세요", "utf-8-sig", "회계팀 엑셀", "on purpose"]},
+    {"id": "max-rows", "file": "orders/export.py", "line": "MAX_ROWS = 65000", "ask": "왜 65000줄에서 자르는 거야?",
+     "from": ["Cap export rows"], "says": ["65,536", "excel 2003", "silently disappeared"]},
+    {"id": "cutoff", "file": "orders/shipping.py", "line": "CUTOFF = time(14, 30)", "ask": "Why is the cutoff 14:30 and not 15:00?",
+     "from": ["Move the cutoff to 14:30"], "says": ["pickup", "packing takes"]},
+    {"id": "jeju", "file": "orders/shipping.py", "line": "postal_code.startswith(\"63\")", "ask": "우편번호가 63으로 시작하면 왜 돈을 더 받아?",
+     "from": ["Jeju and island surcharge"], "says": ["start with 63", "cost the courier extra", "jeju"]},
+    {"id": "sundays", "file": "orders/shipping.py", "line": "while day.weekday() == 6:", "ask": "왜 일요일은 건너뛰어?",
+     "from": ["No dispatch on Sundays"], "says": ["closed on sundays"]},
+    {"id": "customer-1043", "file": "orders/users.py", "line": "if user_id == 1043:", "ask": "Why is user 1043 never blocked?",
+     "from": ["CS-882: never block customer 1043"], "says": ["cs-882", "memorial rite", "제사", "cs promised", "bulk rule blocked"]},
+    {"id": "bulk-limit", "file": "orders/users.py", "line": "BULK_LIMIT = 30", "ask": "Why 30 items?",
+     "from": ["Block bulk buyers"], "says": ["more than any real customer", "resellers"]},
+    {"id": "settle-25th", "file": "jobs/settle.py", "line": "return today.day == 25", "ask": "Why only on the 25th?",
+     "from": ["Settle on the 25th"], "says": ["pays sellers on the 25th", "finance wants"]},
+    {"id": "kst", "file": "orders/timeutil.py", "line": "KST = timezone(", "ask": "Why not just use the server's local time?",
+     "from": ["Use KST for business dates"], "says": ["run in utc", "previous day"]},
+
+    {"id": "base-fee", "file": "orders/shipping.py", "line": "BASE_FEE = 3000", "ask": "Why is the base shipping fee 3000 won?", "silent": true},
+    {"id": "welcome2020", "file": "orders/coupons.py", "line": "FRIENDS = {", "ask": "WELCOME2020은 왜 반값이야?", "silent": true},
+    {"id": "lucky-42", "file": "orders/coupons.py", "line": "random.seed(42)", "ask": "Why is the lucky draw seeded with 42? Isn't that rigged?", "silent": true},
+    {"id": "settle-sleep", "file": "jobs/settle.py", "line": "time.sleep(1)", "ask": "Why sleep a second before settling?", "silent": true},
+    {"id": "pg-timeout", "file": "orders/payment.py", "line": "timeout=10)", "ask": "Why a 10 second timeout?", "silent": true},
+    {"id": "vat-round", "file": "orders/tax.py", "line": "return round(amount * TAX_RATE)", "ask": "왜 반올림해? 원 단위는 보통 버리지 않아?", "silent": true}
+  ]
+}

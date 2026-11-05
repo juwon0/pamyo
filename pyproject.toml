@@ -1,0 +1,25 @@
+[project]
+name = "pamyo"
+version = "0.1.0"
+description = "Ask the developer who left why the code is like that. A local open-weight model answers only in words they left in git."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27",
+    "pydantic>=2.7",
+]
+
+[project.scripts]
+pamyo = "pamyo.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "tests", "scripts"]
